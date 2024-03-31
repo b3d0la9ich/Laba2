@@ -32,5 +32,4 @@ int main() {
     int safeStones = countSafeStones(stones, birds);
     cout << "Count of safe stones: " << safeStones << endl;
 
-    return 0;
 }
