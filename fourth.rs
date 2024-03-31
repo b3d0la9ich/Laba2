@@ -17,9 +17,11 @@ fn count_safe_stones(stones: usize, birds: &Vec<usize>) -> usize {
 }
 
 fn main() {
+
     let stones = 6;
     let birds = vec![3, 2];
 
     let safe_stones = count_safe_stones(stones, &birds);
     println!("Count of safe stones: {}", safe_stones);
+    
 }
