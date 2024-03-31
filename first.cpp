@@ -4,20 +4,21 @@ using namespace std;
 
 int countSafeStones(int stones, const vector<int>& birds) {
 
-    vector<bool> isStoneSafe(stones, true); // »нициализируем все валуны как безопасные
+    vector<bool> isStoneSafe(stones, true); // initialize all stones as safe
 
     for (int bird : birds) {
-        // ≈сли птица может пролететь рассто€ние, которое меньше или равно количеству валунов,
-        // то она посетит валуны с шагом bird
+
+        //if a bird can fly a distance that is less than or equal to the number of stones,
+        //that it will visit the stones with a step "bird"
         for (int i = bird; i <= stones; i += bird) {
-            isStoneSafe[i] = false; // ѕомечаем валун как небезопасный
+            isStoneSafe[i] = false; // mark stone as unsafe
         }
     }
 
     int safeStones = 0;
     for (int i = 1; i <= stones; ++i) {
         if (isStoneSafe[i]) {
-            ++safeStones; // ”величиваем счетчик безопасных валунов
+            ++safeStones; // add counts of safe stones
         }
     }
 
@@ -32,4 +33,5 @@ int main() {
     int safeStones = countSafeStones(stones, birds);
     cout << "Count of safe stones: " << safeStones << endl;
 
+    return 0;
 }
