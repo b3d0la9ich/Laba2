@@ -25,4 +25,3 @@ def count_safe_stones(stones, birds)
   end
   
   main
-  
