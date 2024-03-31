@@ -8,17 +8,17 @@ int countSafeStones(int stones, const vector<int>& birds) {
 
     for (int bird : birds) {
 
-        //if a bird can fly a distance that is less than or equal to the number of stones,
-        //that it will visit the stones with a step "bird"
+        // if a bird can fly a distance that is less than or equal to the number of stones,
+        // that it will visit the stones with a step "bird"
         for (int i = bird; i <= stones; i += bird) {
             isStoneSafe[i] = false; // mark stone as unsafe
         }
     }
 
     int safeStones = 0;
-    for (int i = 1; i <= stones; ++i) {
+    for (int i = 1; i <= stones; i++) {
         if (isStoneSafe[i]) {
-            ++safeStones; // add counts of safe stones
+            safeStones++; // add counts of safe stones
         }
     }
 
