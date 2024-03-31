@@ -21,5 +21,4 @@ function main() {
     let safeStones = countSafeStones(stones, birds);
     console.log("Count of safe stones: " + safeStones);
 }
-
 main();
