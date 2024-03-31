@@ -32,6 +32,5 @@ int main() {
 
     // Output the count of unique emails
     cout << "Count of unique emails: " << uniqueEmails.size() << endl;
-
     return 0;
 }
