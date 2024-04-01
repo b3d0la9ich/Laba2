@@ -1,24 +1,18 @@
-def count_safe_stones(stones, birds):
-    is_stone_safe = [True] * (stones + 1)  # initialize all stones as safe
+def remove_dots(s):
+    result = ""
+    ignore = False
+    for c in s:
+        if c == '*':
+            ignore = True
+        if not ignore and c != '.':
+            result += c
+    return result
 
-    for bird in birds:
-        # if a bird can fly a distance that is less than or equal to the number of stones,
-        # that it will visit the stones with a step "bird"
-        for i in range(bird, stones + 1, bird):
-            is_stone_safe[i] = False  # mark stone as unsafe
+emails = ["mar.pha+science@co.rp.nstu.ru", "marpha+scie.nce@corp.nstu.ru", "marph.a+s.c.i.e.n.c.e+@corp.nstu.ru"]
+unique_emails = set()
 
-    safe_stones = sum(is_stone_safe) - 1  # subtract 1 for 0-index
+for email in emails:
+    cleaned_email = remove_dots(email[:email.find('@')])
+    unique_emails.add(cleaned_email)
 
-    return safe_stones
-
-
-def main():
-    stones = 6
-    birds = [3, 2]
-
-    safe_stones = count_safe_stones(stones, birds)
-    print("Count of safe stones:", safe_stones)
-
-
-if __name__ == "__main__":
-    main()
+print("Count of unique emails:", len(unique_emails))
