@@ -21,7 +21,7 @@ string removeDots(const string& s) {
 
 
 int main() {
-    vector<string> emails = { "marphascience@corp.nstu.ru", "marphascience@corp.nstu.ru", "marpha+science@corp.nstu.ru" };
+    vector<string> emails = { "mar.pha+science@co.rp.nstu.ru", "marpha+scie.nce@corp.nstu.ru", "marph.a+s.c.i.e.n.c.e+@corp.nstu.ru" };
     set<string> uniqueEmails;
     
     // Checking for uniqueness of email addresses after removing dots
