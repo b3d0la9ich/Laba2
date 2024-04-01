@@ -1,33 +1,37 @@
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Main {
-    public static int countSafeStones(int stones, int[] birds) {
-        boolean[] isStoneSafe = new boolean[stones + 1]; // initialize all stones as safe
-        Arrays.fill(isStoneSafe, true);
-
-        for (int bird : birds) {
-            // if a bird can fly a distance that is less than or equal to the number of stones,
-            // that it will visit the stones with a step "bird"
-            for (int i = bird; i <= stones; i += bird) {
-                isStoneSafe[i] = false; // mark stone as unsafe
+    public static String removeDots(String s) {
+        String result = "";
+        boolean ignore = false;
+        for (char c : s.toCharArray()) {
+            if (c == '*') {
+                ignore = true;
+            }
+            if (!ignore && c != '.') {
+                result += c;
             }
         }
-
-        int safeStones = 0;
-        for (int i = 1; i <= stones; i++) {
-            if (isStoneSafe[i]) {
-                safeStones++; // add counts of safe stones
-            }
-        }
-
-        return safeStones;
+        return result;
     }
 
     public static void main(String[] args) {
-        int stones = 6;
-        int[] birds = {3, 2};
+        List<String> emails = new ArrayList<>();
+        emails.add("mar.pha+science@co.rp.nstu.ru");
+        emails.add("marpha+scie.nce@corp.nstu.ru");
+        emails.add("marph.a+s.c.i.e.n.c.e+@corp.nstu.ru");
 
-        int safeStones = countSafeStones(stones, birds);
-        System.out.println("Count of safe stones: " + safeStones);
+        Set<String> uniqueEmails = new HashSet<>();
+
+        for (String email : emails) {
+            String cleanedEmail = removeDots(email.substring(0, email.indexOf('@')));
+            uniqueEmails.add(cleanedEmail);
+        }
+
+        System.out.println("Count of unique emails: " + uniqueEmails.size());
     }
 }
+
