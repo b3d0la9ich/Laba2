@@ -1,24 +1,27 @@
-function countSafeStones(stones, birds) {
-    let isStoneSafe = new Array(stones + 1).fill(true); // initialize all stones as safe
-
-    for (let bird of birds) {
-        // if a bird can fly a distance that is less than or equal to the number of stones,
-        // that it will visit the stones with a step "bird"
-        for (let i = bird; i <= stones; i += bird) {
-            isStoneSafe[i] = false; // mark stone as unsafe
+function removeDots(s) {
+    let result = '';
+    let ignore = false; // Flag indicating whether to ignore characters
+    for (let i = 0; i < s.length; i++) {
+        let c = s.charAt(i);
+        if (c === '*') {
+            ignore = true; // Encountered '*', start ignoring
+        }
+        if (!ignore && c !== '.') {
+            result += c; // Add character to result if it's not '.' and ignore is not active
         }
     }
-
-    let safeStones = isStoneSafe.filter(Boolean).length - 1; // subtract 1 for 0-index
-
-    return safeStones;
+    return result;
 }
 
-function main() {
-    let stones = 6;
-    let birds = [3, 2];
+let emails = ["mar.pha+science@co.rp.nstu.ru", "marpha+scie.nce@corp.nstu.ru", "marph.a+s.c.i.e.n.c.e+@corp.nstu.ru"];
+let uniqueEmails = new Set();
 
-    let safeStones = countSafeStones(stones, birds);
-    console.log("Count of safe stones: " + safeStones);
+// Checking for uniqueness of email addresses after removing dots
+for (let email of emails) {
+    let localPart = email.substring(0, email.indexOf('@'));
+    let cleanedEmail = removeDots(localPart);
+    uniqueEmails.add(cleanedEmail);
 }
-main();
+
+// Output the count of unique emails
+console.log("Count of unique emails: " + uniqueEmails.size);
