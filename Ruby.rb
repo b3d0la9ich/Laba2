@@ -1,27 +1,26 @@
-def count_safe_stones(stones, birds)
-    is_stone_safe = Array.new(stones + 1, true) # initialize all stones as safe
-  
-    birds.each do |bird|
-      # if a bird can fly a distance that is less than or equal to the number of stones,
-      # that it will visit the stones with a step "bird"
-      i = bird
-      while i <= stones
-        is_stone_safe[i] = false # mark stone as unsafe
-        i += bird
-      end
+require 'set'
+
+def remove_dots(s)
+  result = ""
+  ignore = false
+  s.each_char do |c|
+    if c == '*'
+      ignore = true
     end
-  
-    safe_stones = is_stone_safe.count(true) - 1 # subtract 1 for 0-index
-  
-    safe_stones
+    if !ignore && c != '.'
+      result += c
+    end
   end
-  
-  def main
-    stones = 6
-    birds = [3, 2]
-  
-    safe_stones = count_safe_stones(stones, birds)
-    puts "Count of safe stones: #{safe_stones}"
-  end
-  
-  main
+  result
+end
+
+emails = ["mar.pha+science@co.rp.nstu.ru", "marpha+scie.nce@corp.nstu.ru", "marph.a+s.c.i.e.n.c.e+@corp.nstu.ru"]
+unique_emails = Set.new
+
+emails.each do |email|
+  local_part = email.split('@').first
+  cleaned_email = remove_dots(local_part)
+  unique_emails.add(cleaned_email)
+end
+
+puts "Count of unique emails: #{unique_emails.size}"
