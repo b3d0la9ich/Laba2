@@ -1,30 +1,16 @@
-fn remove_dots(s: &str) -> String {
-    let mut result = String::new();
-    let mut ignore = false;
-    for c in s.chars() {
-        if c == '*' {
-            ignore = true;
-        }
-        if !ignore && c != '.' {
-            result.push(c);
+fn count_equal_numbers(sequence: &Vec<i32>) -> i32 {
+    let mut count = 0;
+    for i in 1..sequence.len() {
+        if sequence[i] == sequence[i - 1] {
+            count += 1;
         }
     }
-    result
+    count
 }
 
 fn main() {
-    let emails = vec![
-        "mar.pha+science@co.rp.nstu.ru",
-        "marpha+scie.nce@corp.nstu.ru",
-        "marph.a+s.c.i.e.n.c.e+@corp.nstu.ru",
-    ];
-    let mut unique_emails = std::collections::HashSet::new();
-
-    for email in emails {
-        let local_part = email.split('@').next().unwrap();
-        let cleaned_email = remove_dots(local_part);
-        unique_emails.insert(cleaned_email);
-    }
-
-    println!("Count of unique emails: {}", unique_emails.len());
+    let sequence = vec![5, 12, 12, 23, 23, 23, 108];
+    let result = count_equal_numbers(&sequence);
+    println!("Output: {}", result);
 }
+
