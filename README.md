@@ -1,5 +1,5 @@
 # Laba2
-The code of the second task of the eighth variant is presented in 10 different programming languages:
+The code of the third task of the eighth variant is presented in 10 different programming languages:
 C++
 C#
 Python
