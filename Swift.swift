@@ -1,29 +1,33 @@
 import Foundation
 
-func countSafeStones(stones: Int, birds: [Int]) -> Int {
-    var isStoneSafe = [Bool](repeating: true, count: stones + 1) // initialize all stones as safe
-
-    for bird in birds {
-        // if a bird can fly a distance that is less than or equal to the number of stones,
-        // that it will visit the stones with a step "bird"
-        var i = bird
-        while i <= stones {
-            isStoneSafe[i] = false // mark stone as unsafe
-            i += bird
+// Function to remove all dots from a string
+func removeDots(from s: String) -> String {
+    var result = ""
+    var ignore = false // Flag indicating whether to ignore characters
+    for c in s {
+        if c == "*" {
+            ignore = true // Encountered '*', start ignoring
+        }
+        if !ignore && c != "." {
+            result.append(c) // Add character to result if it's not '.' and ignore is not active
         }
     }
-
-    let safeStones = isStoneSafe.filter { $0 }.count - 1 // subtract 1 for 0-index
-
-    return safeStones
+    return result
 }
 
 func main() {
-    let stones = 6
-    let birds = [3, 2]
+    let emails = ["mar.pha+science@co.rp.nstu.ru", "marpha+scie.nce@corp.nstu.ru", "marph.a+s.c.i.e.n.c.e+@corp.nstu.ru"]
+    var uniqueEmails = Set<String>()
+    
+    // Checking for uniqueness of email addresses after removing dots
+    for email in emails {
+        let localPart = email.components(separatedBy: "@").first ?? ""
+        let cleanedEmail = removeDots(from: localPart)
+        uniqueEmails.insert(cleanedEmail)
+    }
 
-    let safeStones = countSafeStones(stones: stones, birds: birds)
-    print("Count of safe stones: \(safeStones)")
+    // Output the count of unique emails
+    print("Count of unique emails: \(uniqueEmails.count)")
 }
 
 main()
