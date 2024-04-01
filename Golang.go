@@ -2,36 +2,36 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
-func countSafeStones(stones int, birds []int) int {
-	isStoneSafe := make([]bool, stones+1) // initialize all stones as safe
-	for i := range isStoneSafe {
-		isStoneSafe[i] = true
-	}
-
-	for _, bird := range birds {
-		// if a bird can fly a distance that is less than or equal to the number of stones,
-		// that it will visit the stones with a step "bird"
-		for i := bird; i <= stones; i += bird {
-			isStoneSafe[i] = false // mark stone as unsafe
+// Function to remove all dots from a string
+func removeDots(s string) string {
+	var result strings.Builder
+	ignore := false // Flag indicating whether to ignore characters
+	for _, c := range s {
+		if c == '*' {
+			ignore = true // Encountered '*', start ignoring
+		}
+		if !ignore && c != '.' {
+			result.WriteRune(c) // Add character to result if it's not '.' and ignore is not active
 		}
 	}
-
-	safeStones := 0
-	for i := 1; i <= stones; i++ {
-		if isStoneSafe[i] {
-			safeStones++ // add counts of safe stones
-		}
-	}
-
-	return safeStones
+	return result.String()
 }
 
 func main() {
-	stones := 6
-	birds := []int{3, 2}
+	emails := []string{"mar.pha+science@co.rp.nstu.ru", "marpha+scie.nce@corp.nstu.ru", "marph.a+s.c.i.e.n.c.e+@corp.nstu.ru"}
+	uniqueEmails := make(map[string]bool)
 
-	safeStones := countSafeStones(stones, birds)
-	fmt.Println("Count of safe stones:", safeStones)
+	// Checking for uniqueness of email addresses after removing dots
+	for _, email := range emails {
+		atIndex := strings.Index(email, "@")
+		localPart := email[:atIndex]
+		cleanedEmail := removeDots(localPart)
+		uniqueEmails[cleanedEmail] = true
+	}
+
+	// Output the count of unique emails
+	fmt.Println("Count of unique emails:", len(uniqueEmails))
 }
