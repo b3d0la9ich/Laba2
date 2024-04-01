@@ -1,25 +1,28 @@
-fun countSafeStones(stones: Int, birds: List<Int>): Int {
-    val isStoneSafe = BooleanArray(stones + 1) { true } // initialize all stones as safe
-
-    for (bird in birds) {
-        // if a bird can fly a distance that is less than or equal to the number of stones,
-        // that it will visit the stones with a step "bird"
-        var i = bird
-        while (i <= stones) {
-            isStoneSafe[i] = false // mark stone as unsafe
-            i += bird
+fun removeDots(s: String): String {
+    val result = StringBuilder()
+    var ignore = false // Flag indicating whether to ignore characters
+    for (c in s) {
+        if (c == '*') {
+            ignore = true // Encountered '*', start ignoring
+        }
+        if (!ignore && c != '.') {
+            result.append(c) // Add character to result if it's not '.' and ignore is not active
         }
     }
-
-    val safeStones = isStoneSafe.count { it } - 1 // subtract 1 for 0-index
-
-    return safeStones
+    return result.toString()
 }
 
 fun main() {
-    val stones = 6
-    val birds = listOf(3, 2)
+    val emails = arrayOf("mar.pha+science@co.rp.nstu.ru", "marpha+scie.nce@corp.nstu.ru", "marph.a+s.c.i.e.n.c.e+@corp.nstu.ru")
+    val uniqueEmails = mutableSetOf<String>()
 
-    val safeStones = countSafeStones(stones, birds)
-    println("Count of safe stones: $safeStones")
+    // Checking for uniqueness of email addresses after removing dots
+    for (email in emails) {
+        val localPart = email.substringBefore('@')
+        val cleanedEmail = removeDots(localPart)
+        uniqueEmails.add(cleanedEmail)
+    }
+
+    // Output the count of unique emails
+    println("Count of unique emails: ${uniqueEmails.size}")
 }
