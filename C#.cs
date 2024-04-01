@@ -3,35 +3,23 @@ using System.Collections.Generic;
 
 class Program
 {
-    static void Main()
+    static int CountEqualNumbers(List<int> sequence)
     {
-        List<string> emails = new List<string> { "mar.pha+science@co.rp.nstu.ru", "marpha+scie.nce@corp.nstu.ru", "marph.a+s.c.i.e.n.c.e+@corp.nstu.ru" };
-        HashSet<string> uniqueEmails = new HashSet<string>();
-
-        foreach (string email in emails)
+        int count = 0;
+        for (int i = 1; i < sequence.Count; i++)
         {
-            string cleanedEmail = RemoveDots(email.Substring(0, email.IndexOf('@')));
-            uniqueEmails.Add(cleanedEmail);
+            if (sequence[i] == sequence[i - 1])
+            {
+                count++;
+            }
         }
-
-        Console.WriteLine("Count of unique emails: " + uniqueEmails.Count);
+        return count;
     }
 
-    static string RemoveDots(string s)
+    static void Main()
     {
-        string result = "";
-        bool ignore = false;
-        foreach (char c in s)
-        {
-            if (c == '*')
-            {
-                ignore = true;
-            }
-            if (!ignore && c != '.')
-            {
-                result += c;
-            }
-        }
-        return result;
+        List<int> sequence = new List<int> { 5, 12, 12, 23, 23, 23, 108 };
+        int result = CountEqualNumbers(sequence);
+        Console.WriteLine("Output: " + result);
     }
 }
