@@ -1,27 +1,30 @@
-fn count_safe_stones(stones: usize, birds: &Vec<usize>) -> usize {
-    let mut is_stone_safe = vec![true; stones]; // initialize all stones as safe
-
-    for &bird in birds {
-        // if a bird can fly a distance that is less than or equal to the number of stones,
-        // that it will visit the stones with a step "bird"
-        let mut i = bird - 1; // Adjust index to be zero-based
-        while i < stones {
-            is_stone_safe[i] = false; // mark stone as unsafe
-            i += bird;
+fn remove_dots(s: &str) -> String {
+    let mut result = String::new();
+    let mut ignore = false;
+    for c in s.chars() {
+        if c == '*' {
+            ignore = true;
+        }
+        if !ignore && c != '.' {
+            result.push(c);
         }
     }
-
-    let safe_stones = is_stone_safe.iter().filter(|&&x| x).count();
-
-    safe_stones
+    result
 }
 
 fn main() {
+    let emails = vec![
+        "mar.pha+science@co.rp.nstu.ru",
+        "marpha+scie.nce@corp.nstu.ru",
+        "marph.a+s.c.i.e.n.c.e+@corp.nstu.ru",
+    ];
+    let mut unique_emails = std::collections::HashSet::new();
 
-    let stones = 6;
-    let birds = vec![3, 2];
+    for email in emails {
+        let local_part = email.split('@').next().unwrap();
+        let cleaned_email = remove_dots(local_part);
+        unique_emails.insert(cleaned_email);
+    }
 
-    let safe_stones = count_safe_stones(stones, &birds);
-    println!("Count of safe stones: {}", safe_stones);
-
+    println!("Count of unique emails: {}", unique_emails.len());
 }
