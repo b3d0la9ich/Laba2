@@ -1,36 +1,20 @@
 #include <iostream>
 #include <vector>
-#include <set>
-
 using namespace std;
 
-// Function to remove all dots from a string
-string removeDots(const string& s) {
-    string result;
-    bool ignore = false; // Flag indicating whether to ignore characters
-    for (char c : s) {
-        if (c == '*') {
-            ignore = true; // Encountered '*', start ignoring
-        }
-        if (!ignore && c != '.') {
-            result += c; // Add character to result if it's not '.' and ignore is not active
+int countEqualNumbers(vector<int>& sequence) {
+    int count = 0;
+    for (int i = 1; i < sequence.size(); i++) {
+        if (sequence[i] == sequence[i - 1]) {
+            count++;
         }
     }
-    return result;
+    return count;
 }
 
-
 int main() {
-    vector<string> emails = { "mar.pha+science@co.rp.nstu.ru", "marpha+scie.nce@corp.nstu.ru", "marph.a+s.c.i.e.n.c.e+@corp.nstu.ru" };
-    set<string> uniqueEmails;
-    
-    // Checking for uniqueness of email addresses after removing dots
-    for (const string& email : emails) {
-        string cleanedEmail = removeDots(email.substr(0, email.find('@')));
-        uniqueEmails.insert(cleanedEmail);
-    }
-
-    // Output the count of unique emails
-    cout << "Count of unique emails: " << uniqueEmails.size() << endl;
+    vector<int> sequence = {5, 12, 12, 23, 23, 23, 108};
+    int result = countEqualNumbers(sequence);
+    cout << "Output: " << result << endl;
     return 0;
 }
