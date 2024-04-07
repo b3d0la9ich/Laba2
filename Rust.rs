@@ -13,4 +13,3 @@ fn main() {
     let result = count_equal_numbers(&sequence);
     println!("Output: {}", result);
 }
-
