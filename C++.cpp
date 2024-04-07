@@ -28,7 +28,7 @@ int countSafeStones(int stones, vector<int>& birds) {
 int main() {
 
     int stones = 6;
-    vector<int> birds = { -3, 2 };
+    vector<int> birds = { 3, 2 };
     
     // Проверка на отрицательные значения в векторе birds
     for (int bird : birds) {
