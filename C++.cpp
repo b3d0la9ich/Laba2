@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-int countSafeStones(int stones, const vector<int>& birds) {
+int countSafeStones(int stones, vector<int>& birds) {
 
     vector<bool> isStoneSafe(stones, true); // initialize all stones as safe
 
@@ -28,7 +28,15 @@ int countSafeStones(int stones, const vector<int>& birds) {
 int main() {
 
     int stones = 6;
-    vector<int> birds = { 3, 2 };
+    vector<int> birds = { -3, 2 };
+    
+    // Проверка на отрицательные значения в векторе birds
+    for (int bird : birds) {
+        if (bird <= 0) {
+            cout << "Error: finded negative value in vector birds. Exit." << endl;
+            return 1; // Returning a non-zero value to indicate an error
+        }
+    }
 
     int safeStones = countSafeStones(stones, birds);
     cout << "Count of safe stones: " << safeStones << endl;
