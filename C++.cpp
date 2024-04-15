@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <limits> // For numeric_limits
+
 using namespace std;
 
 int countEqualNumbers(vector<int>& sequence) {
