@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <set>
+#include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -20,7 +22,7 @@ string removeDots(const string s) {
         if (c == '*') {
             return result;
         }
-        if (c == '=' || c == '+' || c == '_' || c == '-' || c == ','){
+        if (c == '=' || c == '+' || c == '_' || c == '-' || c == ',' || c == '<' || c == '>' || c == '&' || c == '\''){
             return "wrong";
         }
         
@@ -31,16 +33,36 @@ string removeDots(const string s) {
     return result;
 }
 
-
 int main() {
-    vector<string> emails = { "mar.phas..cience@corp.nstu.ru", "marpha+scie.nce@corp.nstu.ru", "marph.a+s.c.i.e.n.c.e+@corp.nstu.ru" };
+    vector<string> emails = { "maaaasdf@dsf@p.nstu.ru", "marphascience@corp.nstu.ru", "marphas.c.i.e.n.c.e@corp.nstu.ru" };
     set<string> uniqueEmails;
     
+    // Проверка длины до символа "@"
+    for (const string& email : emails) {
+        size_t atPos = email.find('@');
+        if (atPos != string::npos) {
+            size_t lengthBeforeAt = atPos;
+            if (lengthBeforeAt < 6 || lengthBeforeAt > 30) {
+                cout << "Ошибка: количество символов до @ в адресе " << email << " должно быть между 6 и 30." << endl;
+                return 1; // Выход с ошибкой
+            }
+        } else {
+            cout << "Ошибка: адрес " << email << " не содержит символ @." << endl;
+            return 1; // Выход с ошибкой
+        }
+    }
+
     // Checking for uniqueness of email addresses after removing dots
     for (const string& email : emails) {
+        // Check if there is more than one '@' in the email
+        if (count(email.begin(), email.end(), '@') > 1) {
+            cout << "Error: More than one '@' symbol in email: " << email << endl;
+            return 1; // Exit the program with an error code
+        }
+
         string cleanedEmail = removeDots(email.substr(0, email.find('@')));
         if (cleanedEmail != "wrong"){
-        uniqueEmails.insert(cleanedEmail);
+            uniqueEmails.insert(cleanedEmail);
         }
     }
 
