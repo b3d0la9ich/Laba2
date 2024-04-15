@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <limits> // For numeric_limits
 using namespace std;
 
 int countEqualNumbers(vector<int>& sequence) {
@@ -13,7 +14,29 @@ int countEqualNumbers(vector<int>& sequence) {
 }
 
 int main() {
-    vector<int> sequence = {5, 12, 12, 23, 23, 23, 108};
+    int n;
+    cout << "Enter the number of elements: ";
+    cin >> n;
+
+    // Check if the input is a valid integer
+    if (cin.fail()) {
+        cout << "Error: Invalid input. Please enter an integer." << endl;
+        cin.clear(); // Clear the error state
+        return 1; // Exit with an error code
+    }
+
+    vector<int> sequence(n);
+    cout << "Enter the elements: \n";
+    for (int i = 0; i < n; i++) {
+        cin >> sequence[i];
+        // Check if the input is a valid integer
+        if (cin.fail()) {
+            cout << "Error: Invalid input. Please enter integers only." << endl;
+            cin.clear(); // Clear the error state
+            return 1;
+        }
+    }
+
     int result = countEqualNumbers(sequence);
     cout << "Output: " << result << endl;
     return 0;
