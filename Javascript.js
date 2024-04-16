@@ -1,26 +1,59 @@
 function removeDots(s) {
     let result = '';
-    let ignore = false; // Flag indicating whether to ignore characters
-    for (let i = 0; i < s.length; i++) {
-        let c = s.charAt(i);
-        if (c === '*') {
-            ignore = true; // Encountered '*', start ignoring
+    for (let i = 0; i < s.length - 1; i++){
+        if (s[i] === '.' &&  s[i+1] === '.') {
+            return "wrong";
         }
-        if (!ignore && c !== '.') {
+        if(s[0] === '.' || s[s.length - 1] === '.'){
+            return "wrong";
+        }
+    }
+
+    for (let c of s) {
+        if (c === '*') {
+            return result;
+        }
+        if (c === '=' || c === '+' || c === '_' || c === '-' || c === ',' || c === '<' || c === '>' || c === '&' || c === '\''){
+            return "wrong";
+        }
+        
+        if (c !== '.' ) {
             result += c; // Add character to result if it's not '.' and ignore is not active
         }
     }
     return result;
 }
 
-let emails = ["mar.pha+science@co.rp.nstu.ru", "marpha+scie.nce@corp.nstu.ru", "marph.a+s.c.i.e.n.c.e+@corp.nstu.ru"];
+let emails = [ "maaaasdf@dsf@p.nstu.ru", "marphascience@corp.nstu.ru", "marphas.c.i.e.n.c.e@corp.nstu.ru" ];
 let uniqueEmails = new Set();
 
+// Проверка длины до символа "@"
+for (const email of emails) {
+    let atPos = email.indexOf('@');
+    if (atPos !== -1) {
+        let lengthBeforeAt = atPos;
+        if (lengthBeforeAt < 6 || lengthBeforeAt > 30) {
+            console.log("Ошибка: количество символов до @ в адресе " + email + " должно быть между 6 и 30.");
+            process.exit(1); // Выход с ошибкой
+        }
+    } else {
+        console.log("Ошибка: адрес " + email + " не содержит символ @.");
+        process.exit(1); // Выход с ошибкой
+    }
+}
+
 // Checking for uniqueness of email addresses after removing dots
-for (let email of emails) {
-    let localPart = email.substring(0, email.indexOf('@'));
-    let cleanedEmail = removeDots(localPart);
-    uniqueEmails.add(cleanedEmail);
+for (const email of emails) {
+    // Check if there is more than one '@' in the email
+    if ((email.match(/@/g) || []).length > 1) {
+        console.log("Error: More than one '@' symbol in email: " + email);
+        process.exit(1); // Exit the program with an error code
+    }
+
+    let cleanedEmail = removeDots(email.substring(0, email.indexOf('@')));
+    if (cleanedEmail !== "wrong"){
+        uniqueEmails.add(cleanedEmail);
+    }
 }
 
 // Output the count of unique emails
