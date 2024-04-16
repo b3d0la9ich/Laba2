@@ -17,7 +17,7 @@ int main() {
     int n;
     cout << "Enter the number of elements: ";
     cin >> n;
-    
+
     // Check if the input is a valid integer
     if (cin.fail()) {
         cout << "Error: Invalid input. Please enter an integer." << endl;
@@ -29,7 +29,6 @@ int main() {
     cout << "Enter the elements: \n";
     for (int i = 0; i < n; i++) {
         cin >> sequence[i];
-        
         // Check if the input is a valid integer
         if (cin.fail()) {
             cout << "Error: Invalid input. Please enter integers only." << endl;
