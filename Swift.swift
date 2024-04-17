@@ -10,7 +10,25 @@ func countEqualNumbers(sequence: [Int]) -> Int {
     return count
 }
 
-var sequence = [5, 12, 12, 23, 23, 23, 108]
-let result = countEqualNumbers(sequence: sequence)
-print("Output: \(result)")
+func main() {
+    print("Enter the number of elements: ")
+    guard let n = Int(readLine()!), n > 0 else {
+        print("Error: Invalid input. Please enter a positive integer.")
+        return
+    }
 
+    var sequence = [Int]()
+    print("Enter the elements: ")
+    for _ in 0..<n {
+        guard let element = Int(readLine()!), element >= 0 else {
+            print("Error: Invalid input. Please enter non-negative integers only.")
+            return
+        }
+        sequence.append(element)
+    }
+
+    let result = countEqualNumbers(sequence: sequence)
+    print("Output: \(result)")
+}
+
+main()   
