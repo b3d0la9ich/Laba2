@@ -1,26 +1,60 @@
 fun removeDots(s: String): String {
-    val result = StringBuilder()
-    var ignore = false // Flag indicating whether to ignore characters
-    for (c in s) {
-        if (c == '*') {
-            ignore = true // Encountered '*', start ignoring
+    var result = ""
+    for (i in 0 until s.length - 1) {
+        if (s[i] == '.' && s[i + 1] == '.') {
+            return "wrong"
         }
-        if (!ignore && c != '.') {
-            result.append(c) // Add character to result if it's not '.' and ignore is not active
+        if (s[0] == '.' || s.last() == '.') {
+            return "wrong"
         }
     }
-    return result.toString()
+
+    for (c in s) {
+        if (c == '*') {
+            return result
+        }
+        if (c == '=' || c == '+' || c == '_' || c == '-' || c == ',' || c == '<' || c == '>' || c == '&' || c == '\'') {
+            return "wrong"
+        }
+
+        if (c != '.') {
+            result += c // Add character to result if it's not '.' and ignore is not active
+        }
+    }
+    return result
 }
 
 fun main() {
-    val emails = arrayOf("mar.pha+science@co.rp.nstu.ru", "marpha+scie.nce@corp.nstu.ru", "marph.a+s.c.i.e.n.c.e+@corp.nstu.ru")
+    val emails = listOf("maaaasdf@dsf@p.nstu.ru", "marphascience@corp.nstu.ru", "marphas.c.i.e.n.c.e@corp.nstu.ru")
     val uniqueEmails = mutableSetOf<String>()
+
+    // Проверка длины до символа "@"
+    for (email in emails) {
+        val atPos = email.indexOf('@')
+        if (atPos != -1) {
+            val lengthBeforeAt = atPos
+            if (lengthBeforeAt < 6 || lengthBeforeAt > 30) {
+                println("Ошибка: количество символов до @ в адресе $email должно быть между 6 и 30.")
+                return
+            }
+        } else {
+            println("Ошибка: адрес $email не содержит символ @.")
+            return
+        }
+    }
 
     // Checking for uniqueness of email addresses after removing dots
     for (email in emails) {
-        val localPart = email.substringBefore('@')
-        val cleanedEmail = removeDots(localPart)
-        uniqueEmails.add(cleanedEmail)
+        // Check if there is more than one '@' in the email
+        if (email.count { it == '@' } > 1) {
+            println("Error: More than one '@' symbol in email: $email")
+            return
+        }
+
+        val cleanedEmail = removeDots(email.substring(0, email.indexOf('@')))
+        if (cleanedEmail != "wrong") {
+            uniqueEmails.add(cleanedEmail)
+        }
     }
 
     // Output the count of unique emails
