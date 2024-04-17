@@ -1,6 +1,6 @@
-import kotlin.collections.ArrayList
+import java.util.Scanner
 
-fun countEqualNumbers(sequence: ArrayList<Int>): Int {
+fun countEqualNumbers(sequence: List<Int>): Int {
     var count = 0
     for (i in 1 until sequence.size) {
         if (sequence[i] == sequence[i - 1]) {
@@ -11,8 +11,16 @@ fun countEqualNumbers(sequence: ArrayList<Int>): Int {
 }
 
 fun main() {
-    val sequence = arrayListOf(5, 12, 12, 23, 23, 23, 108)
+    val scanner = Scanner(System.`in`)
+    print("Enter the number of elements: ")
+    val n = scanner.nextInt()
+
+    println("Enter the elements: ")
+    val sequence = mutableListOf<Int>()
+    for (i in 0 until n) {
+        sequence.add(scanner.nextInt())
+    }
+
     val result = countEqualNumbers(sequence)
     println("Output: $result")
 }
-
