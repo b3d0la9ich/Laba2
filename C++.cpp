@@ -52,19 +52,33 @@ int main() {
         }
     }
 
-    // Checking for uniqueness of email addresses after removing dots
-    for (const string& email : emails) {
-        // Check if there is more than one '@' in the email
-        if (count(email.begin(), email.end(), '@') > 1) {
-            cout << "Error: More than one '@' symbol in email: " << email << endl;
-            return 1; // Exit the program with an error code
-        }
-
-        string cleanedEmail = removeDots(email.substr(0, email.find('@')));
-        if (cleanedEmail != "wrong"){
-            uniqueEmails.insert(cleanedEmail);
-        }
+// Checking for uniqueness of email addresses after removing dots
+for (const string& email : emails) {
+    // Получаем часть после '@'
+    size_t atIndex = email.find('@');
+    if (atIndex == string::npos) {
+        cout << "Ошибка: адрес " << email << " не содержит символ @." << endl;
+        return 1; // Выход с ошибкой
     }
+
+    string domain = email.substr(atIndex + 1); // Получаем доменное имя
+    if (domain != "corp.nstu.ru") {
+        cout << "Ошибка: адрес " << email << " имеет недопустимый доменный адрес." << endl;
+        return 1; // Выход с ошибкой
+    }
+
+    // Check if there is more than one '@' in the email
+    if (count(email.begin(), email.end(), '@') > 1) {
+        cout << "Ошибка: более одного символа '@' в адресе: " << email << endl;
+        return 1; // Выход с ошибкой
+    }
+
+    string cleanedEmail = removeDots(email.substr(0, atIndex));
+    if (cleanedEmail != "wrong") {
+        uniqueEmails.insert(cleanedEmail);
+    }
+}
+
 
     // Output the count of unique emails
     cout << "Count of unique emails: " << uniqueEmails.size() << endl;
